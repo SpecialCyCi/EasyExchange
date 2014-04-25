@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org/'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
@@ -51,6 +51,12 @@ gem "cancan"
 gem "slim-rails"
 gem "simple_form", git: "https://github.com/plataformatec/simple_form"
 gem "uuidtools"
+gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid_auto_increment_id', "0.6.2"
+# 全文搜索引擎
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+
 group :development do
   gem "rspec-rails"
   gem "guard-rspec"
@@ -58,7 +64,6 @@ end
 
 group :test do
   gem "capybara"
-  gem "capybara-webkit"
   gem "launchy"
   gem "factory_girl_rails"
   gem "database_cleaner"
