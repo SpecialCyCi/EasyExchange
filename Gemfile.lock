@@ -113,6 +113,9 @@ GEM
       rack-accept
       rack-mount
       virtus
+    grape-entity (0.4.2)
+      activesupport
+      multi_json (>= 1.3.2)
     guard (2.6.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -298,7 +301,8 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   factory_girl_rails
-  grape (= 0.5.0)
+  grape
+  grape-entity
   guard-rspec
   jbuilder (~> 1.2)
   jquery-rails

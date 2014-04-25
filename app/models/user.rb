@@ -29,25 +29,9 @@ class User
                           password: password, 
                           nickname: username )
       user.update_private_token
+      return user
     end
     return false
-  end
-
-  # 获取个人信息，面向自己
-  def to_my_profile
-    to_other_profile
-  end
-
-  # 获取他人信息，面向他人
-  def to_other_profile
-    { 
-      nickname: self.nickname, 
-      avatar: [
-                thumb: self.avatar.thumb.url,
-                medium: self.avatar.medium.url,
-                origin: self.avatar.origin.url
-              ]
-    }
   end
 
   def password

@@ -35,6 +35,9 @@ describe Api::Root do
       expect{
         post "/api/user/sign_in", { username: "except", password: "except" }
       }.to change(User, :count).by(1)
+      json = JSON.parse(response.body)
+      json["auth_token"].should_not be_nil
+
     end
 
     it "should be not ok" do
@@ -57,6 +60,7 @@ describe Api::Root do
 
     it "should be ok" do
       get "/api/user/my", { auth_token: login }
+      puts response.body
       response.status.should == 200
       json = JSON.parse(response.body)
       json.has_key?("nickname").should be_true
@@ -75,6 +79,7 @@ describe Api::Root do
     it "should be ok" do
       user
       get "/api/user/#{user.id}"
+      puts response.body
       json = JSON.parse(response.body)
       json.has_key?("nickname").should be_true
     end

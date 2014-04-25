@@ -56,7 +56,8 @@ gem 'mongoid_auto_increment_id', "0.6.2"
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 # API系统
-gem "grape", "0.5.0"
+gem "grape"
+gem 'grape-entity'
 # 分页系统
 gem "will_paginate_mongoid"
 # 图片附件

@@ -1,4 +1,5 @@
 require 'grape'
+require "entities"
 require "helpers"
 module Api
   class Root < Grape::API
@@ -24,7 +25,6 @@ module Api
         if !User.where(username: params[:username]).exists?
           if user = User.sign_in(params[:username], params[:password])
             { auth_token: user.authentication_token }
-          else
           end
         else
           error!({ "error" => "Username existed" }, 403)
@@ -33,11 +33,11 @@ module Api
 
       get :my do
         authenticated?
-        current_user.to_my_profile
+        present current_user, :with => Entities::ToMyUser
       end
 
       get ":id" do
-        User.find(params[:id]).to_other_profile
+        present User.find(params[:id]), :with => Entities::ToOtherUser
       end
 
       post "update" do
@@ -49,7 +49,45 @@ module Api
 
     end
 
+    resource :goods do
 
+      get do
+        @goods = Goods.paginate(:page => params[:page], :per_page => params[:per_page]||10)
+        present @goods, :with => Entities::Goods
+      end
+
+      get ":id" do
+        @goods = Goods.find(params[:id])
+        present @goods, :with => Entities::Goods
+      end
+
+      post :create do
+        authenticated?
+        Goods.create(params[:goods].merge(user: current_user))
+        { message: "success" }
+      end
+
+      post ":id/update" do
+        authenticated?
+        @goods = Goods.find(params[:id])
+        error!({ "error" => "Not your goods!" }, 405) if @goods.user != current_user
+        new_params = ActionController::Parameters.new(params).require(:goods).permit(:name, :description, :photos_attributes, :durbility, :price, :goods_options_attributes )
+        if @goods.update_attributes(new_params)
+          { message: "success" }
+        else
+          error!({ "error" => @goods.errors.full_messages }, 403)
+        end
+      end
+
+      post ":id/destroy" do
+        authenticated?
+        @goods = Goods.find(params[:id])
+        error!({ "error" => "Not your goods!" }, 405) if @goods.user != current_user
+        @goods.destroy
+        { message: "success" }
+      end
+
+    end
 
   end
 end
