@@ -64,13 +64,16 @@ gem "will_paginate_mongoid"
 gem "carrierwave"
 gem "carrierwave-mongoid", :require => 'carrierwave/mongoid'
 gem "mini_magick"
-# 模糊搜索
 gem 'bson_ext'
-gem 'sunspot_mongoid'
+# rails admin
+gem 'rails_admin', git: 'https://github.com/sferik/rails_admin'
 
 group :development do
   gem "rspec-rails"
   gem "guard-rspec"
+  gem 'better_errors'
+  gem "binding_of_caller"
+  gem 'debugger', group: [:development, :test]
 end
 
 group :test do

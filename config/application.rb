@@ -26,7 +26,6 @@ module EasyExchange
     config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style'
 
     config.paths.add "app/api", glob: "**/*.rb"            #For Grape
-    config.autoload_paths += Dir["#{Rails.root}/app"]      # For Grape
     config.middleware.use(Rack::Config) do |env|
      env['api.tilt.root'] = Rails.root.join "app", "views", "api"   # For Grape-Rabl
     end

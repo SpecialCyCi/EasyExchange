@@ -1,8 +1,6 @@
 EasyExchange::Application.routes.draw do
   mount Api::Root => '/'
-  namespace :api do
-    resources :tokens,:only => [:create, :destroy]
-  end
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

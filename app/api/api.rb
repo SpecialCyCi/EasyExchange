@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'grape'
 require "entities"
 require "helpers"
@@ -43,6 +44,10 @@ module Api
       post "update" do
         authenticated?
         new_params = ActionController::Parameters.new(params).require(:user).permit(:avatar, :nickname)
+        if !params[:user][:avatar].blank?
+          current_user.avatar = params[:user][:avatar]
+          current_user.save
+        end
         current_user.update_attributes(new_params)
         { message: "success" }
       end
