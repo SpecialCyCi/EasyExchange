@@ -35,7 +35,4 @@ module EasyExchange
     config.assets.debug = false
 
   end
-
-
-  end
 end
