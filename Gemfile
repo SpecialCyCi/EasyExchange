@@ -64,6 +64,9 @@ gem "will_paginate_mongoid"
 gem "carrierwave"
 gem "carrierwave-mongoid", :require => 'carrierwave/mongoid'
 gem "mini_magick"
+# 模糊搜索
+gem 'bson_ext'
+gem 'sunspot_mongo'
 
 group :development do
   gem "rspec-rails"
