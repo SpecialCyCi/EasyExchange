@@ -4,6 +4,8 @@ class User
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  devise :token_authenticatable
+  before_save :ensure_authentication_token
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -23,6 +25,8 @@ class User
   field :last_sign_in_at,    type: Time
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
+  field :authentication_token, type: String
+  index({ authentication_token: 1 }, { unique: true })
 
   ## Confirmable
   # field :confirmation_token,   type: String
