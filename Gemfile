@@ -56,6 +56,14 @@ gem 'mongoid_auto_increment_id', "0.6.2"
 # 全文搜索引擎
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+# 用户系统
+gem 'devise', github: 'plataformatec/devise'
+# 分页系统
+gem "will_paginate_mongoid"
+# 图片附件
+gem "carrierwave"
+gem "carrierwave-mongoid", :require => 'carrierwave/mongoid'
+gem "mini_magick"
 
 group :development do
   gem "rspec-rails"

@@ -28,3 +28,6 @@ doc/
 .idea
 .secret
 .DS_Store
+*.swp
+*.swo
+/public/uploads
