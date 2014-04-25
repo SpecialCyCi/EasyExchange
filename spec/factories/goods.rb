@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :good, :class => 'Goods' do
-    name "高等数学"
+    name "highschool"
     description ""
     durbility 9
     price 1.23

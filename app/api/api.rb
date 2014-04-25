@@ -87,6 +87,15 @@ module Api
         { message: "success" }
       end
 
+      # 搜索
+      get "search/:keyword" do
+        @goods = Goods.solr_search do
+          fulltext params[:keyword]
+          paginate :page => params[:page], :per_page => 10
+        end.results
+        present @goods, :with => Entities::Goods
+      end
+
     end
 
   end

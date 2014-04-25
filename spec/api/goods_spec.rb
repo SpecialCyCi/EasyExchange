@@ -1,6 +1,15 @@
 require "spec_helper"
 
 describe Api::Root do
+  include SolrSpecHelper
+
+  before(:all) do
+    solr_setup
+  end
+
+  after(:all) do
+    Goods.remove_all_from_index!
+  end
 
   let(:user) { FactoryGirl.create :user }
   let(:good) { FactoryGirl.create :good }
@@ -77,4 +86,17 @@ describe Api::Root do
 
   end
 
+  describe "search goods" do
+
+    before do
+      FactoryGirl.create_list :good, 100
+    end
+
+    it "should show want goods" do
+      get "/api/goods/search/h"
+      json = JSON.parse(response.body)
+      json.length.should_not eq 0
+    end
+
+  end
 end

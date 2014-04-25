@@ -1,7 +1,7 @@
 class Goods
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Sunspot::Mongo
+  include Sunspot::Mongoid
 
   field :name, type: String
   field :description, type: String
@@ -19,8 +19,7 @@ class Goods
   default_scope -> {order_by(:created_at => :desc)}
 
   searchable do
-    text :name
-    text :description
+    text :name, :description
     time :created_at
     time :updated_at
     float :longitude

@@ -257,8 +257,10 @@ GEM
     sunspot (2.1.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
-    sunspot_mongo (1.0.1)
-      sunspot_rails
+    sunspot_mongoid (0.4.1)
+      mongoid
+      sunspot (>= 1.1.0)
+      sunspot_rails (>= 1.1.0)
     sunspot_rails (2.1.0)
       nokogiri
       rails (>= 3)
@@ -322,7 +324,7 @@ DEPENDENCIES
   simple_form!
   slim-rails
   sqlite3
-  sunspot_mongo
+  sunspot_mongoid
   sunspot_rails
   sunspot_solr
   turbolinks
