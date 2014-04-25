@@ -31,3 +31,12 @@ doc/
 *.swp
 *.swo
 /public/uploads
+
+# Ignore Solr generated files
+solr/*
+sunspot_solr_mmseg4j/*
+tmp/*
+mmseg4j/*
+mmseg4j*
+
+/solr
