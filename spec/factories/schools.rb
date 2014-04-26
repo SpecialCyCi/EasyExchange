@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :school do
+    name "abc"
   end
 end

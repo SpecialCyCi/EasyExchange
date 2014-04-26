@@ -25,4 +25,7 @@ module Entities
     end
   end
 
+  class School < Grape::Entity
+    expose :id, :name
+  end
 end
