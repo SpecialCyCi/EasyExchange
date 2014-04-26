@@ -1,3 +1,0 @@
-class Good < Goods
-
-end

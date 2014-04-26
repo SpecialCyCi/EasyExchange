@@ -54,51 +54,51 @@ module Api
 
     end
 
-    resource :goods do
+    resource :product do
 
       get do
-        @goods = Goods.paginate(:page => params[:page], :per_page => params[:per_page]||10)
-        present @goods, :with => Entities::Goods
+        @products = Product.paginate(:page => params[:page], :per_page => params[:per_page]||10)
+        present @products, :with => Entities::Product
       end
 
       get ":id" do
-        @goods = Goods.find(params[:id])
-        present @goods, :with => Entities::Goods
+        @products = Product.find(params[:id])
+        present @products, :with => Entities::Product
       end
 
       post :create do
         authenticated?
-        Goods.create(params[:goods].merge(user: current_user))
+        Product.create(params[:product].merge(user: current_user))
         { message: "success" }
       end
 
       post ":id/update" do
         authenticated?
-        @goods = Goods.find(params[:id])
-        error!({ "error" => "Not your goods!" }, 405) if @goods.user != current_user
-        new_params = ActionController::Parameters.new(params).require(:goods).permit(:name, :description, :photos_attributes, :durbility, :price, :goods_options_attributes )
-        if @goods.update_attributes(new_params)
+        @product = Product.find(params[:id])
+        error!({ "error" => "Not your product!" }, 405) if @product.user != current_user
+        new_params = ActionController::Parameters.new(params).require(:product).permit(:name, :description, :photos_attributes, :durbility, :price, :product_options_attributes )
+        if @product.update_attributes(new_params)
           { message: "success" }
         else
-          error!({ "error" => @goods.errors.full_messages }, 403)
+          error!({ "error" => @product.errors.full_messages }, 403)
         end
       end
 
       post ":id/destroy" do
         authenticated?
-        @goods = Goods.find(params[:id])
-        error!({ "error" => "Not your goods!" }, 405) if @goods.user != current_user
-        @goods.destroy
+        @product = Product.find(params[:id])
+        error!({ "error" => "Not your product!" }, 405) if @product.user != current_user
+        @product.destroy
         { message: "success" }
       end
 
       # 搜索
       get "search/:keyword" do
-        @goods = Goods.solr_search do
+        @products = Product.solr_search do
           fulltext params[:keyword]
           paginate :page => params[:page], :per_page => 10
         end.results
-        present @goods, :with => Entities::Goods
+        present @products, :with => Entities::Product
       end
 
     end

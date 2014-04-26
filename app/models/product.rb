@@ -1,4 +1,4 @@
-class Goods
+class Product
   include Mongoid::Document
   include Mongoid::Timestamps
   include Sunspot::Mongoid
@@ -12,10 +12,10 @@ class Goods
   validates_presence_of :name
   validates_presence_of :durbility
   validates_presence_of :price
-  has_many :goods_options
+  has_many :product_options
   has_many :photos
   belongs_to :user
-  accepts_nested_attributes_for :goods_options, :photos, allow_destroy: true
+  accepts_nested_attributes_for :product_options, :photos, allow_destroy: true
   default_scope -> {order_by(:created_at => :desc)}
 
   searchable do

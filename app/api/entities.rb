@@ -1,10 +1,6 @@
 require 'grape'
 module Entities
 
-  class Avatar < Grape::Entity
-
-  end
-
   class ToOtherUser < Grape::Entity
     expose :id, :nickname, :created_at
     expose :avatar do |model, opts|
@@ -19,13 +15,13 @@ module Entities
     end
   end
 
-  class Goods < Grape::Entity
-    expose :id, :name, :description, :durbility, :price, :goods_options, :created_at, :updated_at 
+  class Product < Grape::Entity
+    expose :id, :name, :description, :durbility, :price, :product_options, :created_at, :updated_at 
     expose :user do |model, opts|
       Entities::ToOtherUser.represent model.user
     end
     expose :photos do |model, opts|
-      model.photos.map{ |e| {thumb: e.thumb.url, medium: e.medium.url, origin: e.origin.url }}
+      model.photos.map{ |e| { thumb: e.picture.thumb.url, medium: e.picture.medium.url, origin: e.picture.origin.url }}
     end
   end
 
