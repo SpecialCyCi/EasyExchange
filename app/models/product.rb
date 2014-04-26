@@ -16,6 +16,7 @@ class Product
   has_many :product_options
   has_many :photos
   belongs_to :user
+  belongs_to :school
   accepts_nested_attributes_for :product_options, :photos, allow_destroy: true
   default_scope -> {order_by(:created_at => :desc)}
   index({ loc: Mongo::GEO2D}, { background: true })

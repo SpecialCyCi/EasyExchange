@@ -43,7 +43,7 @@ module Api
 
       post "update" do
         authenticated?
-        new_params = ActionController::Parameters.new(params).require(:user).permit(:avatar, :nickname)
+        new_params = ActionController::Parameters.new(params).require(:user).permit(:avatar, :nickname, :school_id)
         if !params[:user][:avatar].blank?
           current_user.avatar = params[:user][:avatar]
           current_user.save

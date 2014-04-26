@@ -11,6 +11,7 @@ class User
   mount_uploader :avatar, AvatarUploader
   validates_presence_of :username
   validates_presence_of :nickname
+  belongs_to :school
 
   # 登陆
   def self.login(username, password)

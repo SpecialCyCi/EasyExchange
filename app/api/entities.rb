@@ -3,6 +3,9 @@ module Entities
 
   class ToOtherUser < Grape::Entity
     expose :id, :nickname, :created_at
+    expose :school do |model, opts|
+      Entities::School.represent model.school
+    end
     expose :avatar do |model, opts|
       { thumb: model.avatar.thumb.url, medium: model.avatar.medium.url, origin: model.avatar.origin.url }
     end
@@ -10,6 +13,9 @@ module Entities
 
   class ToMyUser < Grape::Entity
     expose :id, :nickname, :created_at
+    expose :school do |model, opts|
+      Entities::School.represent model.school
+    end
     expose :avatar do |model, opts|
       { thumb: model.avatar.thumb.url, medium: model.avatar.medium.url, origin: model.avatar.origin.url }
     end
@@ -17,6 +23,9 @@ module Entities
 
   class Product < Grape::Entity
     expose :id, :name, :description, :durbility, :price, :product_options, :created_at, :updated_at, :latitude, :longitude
+    expose :school do |model, opts|
+      Entities::School.represent model.school
+    end
     expose :user do |model, opts|
       Entities::ToOtherUser.represent model.user
     end
