@@ -61,7 +61,7 @@ module Api
         present @products, :with => Entities::Product
       end
 
-      get do
+      get ":id", requirements: { id: /[0-9]*/ } do
         @products = Product.find(params[:id])
         present @products, :with => Entities::Product
       end
@@ -100,7 +100,7 @@ module Api
         if !params[:distance].blank? && !params[:latitude].blank? && !params[:longitude].blank?
           location = [ params[:latitude].to_f, params[:longitude].to_f ]
           query_params = query_params.merge({
-            :loc => {"$near" => location , '$maxDistance' => params[:distance].to_i.fdiv(111.12) }
+            :loc => {"$near" => location, '$maxDistance' => params[:distance].to_i.fdiv(111.12) }
           })
         end
         if !params[:keyword].blank?

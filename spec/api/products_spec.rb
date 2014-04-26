@@ -1,15 +1,6 @@
 require "spec_helper"
 
 describe Api::Root do
-  include SolrSpecHelper
-
-  before(:all) do
-    solr_setup
-  end
-
-  after(:all) do
-    Product.remove_all_from_index!
-  end
 
   let(:user) { FactoryGirl.create :user }
   let(:product) { FactoryGirl.create :product }
