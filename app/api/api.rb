@@ -119,15 +119,15 @@ module Api
 
     end
 
-  end
+    resource :school do
 
-  resource :school do
+      get 'search' do
+        @schools = School.where(name: /#{params[:keyword]}/)
+                      .paginate(:page => params[:page], :per_page => params[:per_page]||10)
+        present @schools, :with => Entities::School
+      end
 
-    get 'search' do
-      @schools = School.where(name: /#{params[:keyword]}/)
-                    .paginate(:page => params[:page], :per_page => params[:per_page]||10)
-      present @schools, :with => Entities::School
     end
-
   end
+
 end
