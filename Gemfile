@@ -50,6 +50,7 @@ gem "bourbon"
 gem "slim-rails"
 gem "simple_form", git: "https://github.com/plataformatec/simple_form"
 gem "uuidtools"
+gem "mongo"
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
 gem 'mongoid_auto_increment_id', "0.6.2"
 # 全文搜索引擎

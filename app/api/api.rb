@@ -61,7 +61,7 @@ module Api
         present @products, :with => Entities::Product
       end
 
-      get ":id" do
+      get do
         @products = Product.find(params[:id])
         present @products, :with => Entities::Product
       end
@@ -93,11 +93,27 @@ module Api
       end
 
       # 搜索
-      get "search/:keyword" do
-        @products = Product.solr_search do
-          fulltext params[:keyword]
-          paginate :page => params[:page], :per_page => 10
-        end.results
+      get "search" do
+        query_params = {}
+        sort_params = []
+        product_class = Product
+        if !params[:distance].blank? && !params[:latitude].blank? && !params[:longitude].blank?
+          location = [ params[:latitude].to_f, params[:longitude].to_f ]
+          query_params = query_params.merge({
+            :loc => {"$near" => location , '$maxDistance' => params[:distance].to_i.fdiv(111.12) }
+          })
+        end
+        if !params[:keyword].blank?
+          query_params = query_params.merge(name: /#{params[:keyword]}/)
+        end
+        if !params[:order_by].blank?
+          params[:order_direction] ||= :desc
+          sort_params << [ params[:order_by], params[:order_direction] ]
+          product_class = Product.unscoped
+        end
+        
+        @products = product_class.where(query_params).order_by(sort_params)
+                    .paginate(:page => params[:page], :per_page => params[:per_page]||10)
         present @products, :with => Entities::Product
       end
 

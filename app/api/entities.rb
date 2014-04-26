@@ -16,7 +16,7 @@ module Entities
   end
 
   class Product < Grape::Entity
-    expose :id, :name, :description, :durbility, :price, :product_options, :created_at, :updated_at 
+    expose :id, :name, :description, :durbility, :price, :product_options, :created_at, :updated_at, :latitude, :longitude
     expose :user do |model, opts|
       Entities::ToOtherUser.represent model.user
     end
