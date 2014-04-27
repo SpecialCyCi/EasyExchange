@@ -22,7 +22,7 @@ module Entities
   end
 
   class Product < Grape::Entity
-    expose :id, :name, :description, :durbility, :price, :product_options, :created_at, :updated_at, :latitude, :longitude
+    expose :id, :name, :description, :durability, :price, :product_options, :created_at, :updated_at, :latitude, :longitude, :contacter, :contact
     expose :school do |model, opts|
       Entities::School.represent model.school
     end

@@ -12,7 +12,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -32,15 +32,15 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
-    process :resize_to_fill => [120, 120]
+    process :resize_to_fill => [120, 200]
   end
 
   version :medium do
-    process :resize_to_fill => [350, 350]
+    process :resize_to_fill => [350, 450]
   end
 
   version :origin do
-    process :resize_to_fill => [800, 800]
+    process :resize_to_fill => [800, 1024]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -51,9 +51,9 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    "#{Time.now.to_i}_#{original_filename}.jpg" if original_filename
+  end
   def default_url
     "default_avatar.png"
   end

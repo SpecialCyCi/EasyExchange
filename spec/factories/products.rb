@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :product do
     name "highschool"
     description ""
-    durbility 9
+    durability 9
     price 1.23
   end
 end

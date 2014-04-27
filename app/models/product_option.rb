@@ -3,6 +3,6 @@ class ProductOption
   include Mongoid::Timestamps
   field :key, type: String
   field :value, type: String
-  belongs_to :product
+  embedded_in :product
 
 end

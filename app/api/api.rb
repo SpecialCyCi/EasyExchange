@@ -57,12 +57,18 @@ module Api
     resource :product do
 
       get do
-        @products = Product.paginate(:page => params[:page], :per_page => params[:per_page]||10)
+        @products = Product.where(school_id: params[:school_id]).paginate(:page => params[:page], :per_page => params[:per_page]||10)
         present @products, :with => Entities::Product
       end
 
       get ":id", requirements: { id: /[0-9]*/ } do
         @products = Product.find(params[:id])
+        present @products, :with => Entities::Product
+      end
+
+      get "my" do
+        authenticated?
+        @products = current_user.paginate(:page => params[:page], :per_page => params[:per_page]||10)
         present @products, :with => Entities::Product
       end
 
@@ -76,7 +82,7 @@ module Api
         authenticated?
         @product = Product.find(params[:id])
         error!({ "error" => "Not your product!" }, 405) if @product.user != current_user
-        new_params = ActionController::Parameters.new(params).require(:product).permit(:name, :description, :photos_attributes, :durbility, :price, :product_options_attributes )
+        new_params = ActionController::Parameters.new(params).require(:product).permit(:name, :description, :photos_attributes, :durability, :price, :product_options_attributes )
         if @product.update_attributes(new_params)
           { message: "success" }
         else
@@ -106,6 +112,9 @@ module Api
         if !params[:keyword].blank?
           query_params = query_params.merge(name: /#{params[:keyword]}/)
         end
+        if !params[:school_id].blank?
+          query_params = query_params.merge(school_id: /#{params[:school_id]}/)
+        end
         if !params[:order_by].blank?
           params[:order_direction] ||= :desc
           sort_params << [ params[:order_by], params[:order_direction] ]
@@ -123,7 +132,7 @@ module Api
 
       get 'search' do
         @schools = School.where(name: /#{params[:keyword]}/)
-                      .paginate(:page => params[:page], :per_page => params[:per_page]||10)
+                      .paginate(:page => params[:page], :per_page => params[:per_page]||30)
         present @schools, :with => Entities::School
       end
 
