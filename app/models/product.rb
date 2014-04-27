@@ -6,6 +6,9 @@ class Product
   field :description, type: String
   field :durability, type: Integer
   field :price, type: Float
+  field :origin_price, type: Float
+  field :publishing_company, type: String
+  field :writer, type: String
   field :latitude, type: Float  # 纬度
   field :longitude, type: Float # 经度
   field :contacter, type: String

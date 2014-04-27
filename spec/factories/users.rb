@@ -10,7 +10,7 @@ FactoryGirl.define do
       nicknames.sample
     end
     avatar do
-      File.open Rails.root.join("db", "seeds_data", "avatarss", "#{rand(1..40)}.jpg")
+      File.open Rails.root.join("db", "seeds_data", "avatars", "#{rand(1..40)}.jpg")
     end
     password "testing"
   end
