@@ -16,6 +16,7 @@ class Product
   field :loc, :type => Array
   field :exchangeable, typp: Boolean
   field :want_exchange, type: String
+  field :tags, type: String
   validates_presence_of :name
   validates_presence_of :durability
   validates_presence_of :price
