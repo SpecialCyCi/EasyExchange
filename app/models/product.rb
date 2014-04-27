@@ -14,7 +14,7 @@ class Product
   field :contacter, type: String
   field :contact, type: String
   field :loc, :type => Array
-  field :exchangeable, typp: Boolean
+  field :exchangeable, type: Boolean, default: false
   field :want_exchange, type: String
   field :tags, type: String
   validates_presence_of :name

@@ -2,7 +2,10 @@ require 'grape'
 module Entities
 
   class ToOtherUser < Grape::Entity
-    expose :id, :nickname, :created_at
+    expose :id, :nickname
+    expose :created_at do |model, opts|
+      model.created_at.to_i
+    end
     expose :school do |model, opts|
       Entities::School.represent model.school
     end
@@ -12,7 +15,10 @@ module Entities
   end
 
   class ToMyUser < Grape::Entity
-    expose :id, :nickname, :created_at
+    expose :id, :nickname
+    expose :created_at do |model, opts|
+      model.created_at.to_i
+    end
     expose :school do |model, opts|
       Entities::School.represent model.school
     end
@@ -22,9 +28,15 @@ module Entities
   end
 
   class Product < Grape::Entity
-    expose :id, :name, :description, :durability, :price, :product_options, :created_at, :updated_at, :latitude, :longitude, :contacter, :contact, :origin_price, :publishing_company, :writer, :exchangeable, :want_exchange, :tags
+    expose :id, :name, :description, :durability, :price, :product_options, :latitude, :longitude, :contacter, :contact, :origin_price, :publishing_company, :writer, :exchangeable, :want_exchange, :tags
     expose :school do |model, opts|
       Entities::School.represent model.school
+    end
+    expose :created_at do |model, opts|
+      model.created_at.to_i
+    end
+    expose :updated_at do |model, opts|
+      model.updated_at.to_i
     end
     expose :user do |model, opts|
       Entities::ToOtherUser.represent model.user

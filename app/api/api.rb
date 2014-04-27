@@ -82,7 +82,7 @@ module Api
         authenticated?
         @product = Product.find(params[:id])
         error!({ "error" => "Not your product!" }, 405) if @product.user != current_user
-        new_params = ActionController::Parameters.new(params).require(:product).permit(:name, :description, :photos_attributes, :durability, :price, :product_options_attributes, :origin_price, :publishing_company, :writer, :exchangeable, :want_exchange, :tags }
+        new_params = ActionController::Parameters.new(params).require(:product).permit(:name, :description, :photos_attributes, :durability, :price, :product_options_attributes, :origin_price, :publishing_company, :writer, :exchangeable, :want_exchange, :tags)
         if @product.update_attributes(new_params)
           { message: "success" }
         else
